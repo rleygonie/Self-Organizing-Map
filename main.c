@@ -12,16 +12,30 @@ int main(){
     b=initialisation_bd();
     reseau *r;
     r=initialisation_reseau(b);
-    apprentissage(b,r,2000);
-    //int iteration_total =2000 //500*taillevec
-    /*int somme=0;
-     for (int i=0;i<r.longueur;i++){
-        for(int j=0; j<r.largeur;j++){
-            printf("%f %f %f %f\n",r.Reseau[i][j].valeur[0],r.Reseau[i][j].valeur[1],r.Reseau[i][j].valeur[2],r.Reseau[i][j].valeur[3]);
-            //somme+=1;
+    /*for(int i=0;i<b.nb_lignes;i++){
+        printf("%s",b.donnée[i].nom);
+    }*/
+    printf("------------------Inititialisation-------------------\n");
+    for (int i=0;i<r->longueur;i++){
+        for(int j=0; j<r->largeur;j++){
+            printf("%s ","*");
         }
+        printf("\n");
     }
-    printf("%d",somme);*/
+    //printf("%d",somme);
+    printf("------------------Apprentissage-------------------\n");
+    int iteration_totale =2000; //500*taillevec
+    apprentissage(b,r,iteration_totale);
+    
+    printf("------------------Fin-------------------\n");
+    for (int j=0; j<r->largeur;j++){
+        for(int i=0;i<r->longueur;i++){
+            printf("%s",r->Reseau[i][j].nom);
+        }
+        printf("\n");
+    }
+
+
 
     return 0;
 }
