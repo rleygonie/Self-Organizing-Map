@@ -11,7 +11,7 @@ void apprentissage( base_de_données b, reseau *r, int nb_iteration){
     int phase2= nb_iteration-phase1;
     for (int i = 0; i < b.nb_lignes; i++)
     {
-        tab_ind[i]=i;
+        tab_ind[i]=i;  
     }
     double alpha=0.7;
     printf("1\n");
