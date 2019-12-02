@@ -135,21 +135,14 @@ int calculer_rayon(int iteration, int phase1, int rayon){
 
 void affecte_valeur(reseau *r,bmu bm, int pos, base_de_données b){
     if (strcmp(b.donnée[pos].nom,"Iris-setosa\n")==0){
-        r->Reseau[bm.ligne][bm.colonne].nom="R";
+        r->Reseau[bm.ligne][bm.colonne].etiquette="R";
     }
     else{
         if(strcmp(b.donnée[pos].nom,"Iris-versicolor\n")==0){
-            r->Reseau[bm.ligne][bm.colonne].nom="E";
+            r->Reseau[bm.ligne][bm.colonne].etiquette="E";
         }
         else{
-            if(strcmp(b.donnée[pos].nom,"Iris-virginica\n")==0){
-                r->Reseau[bm.ligne][bm.colonne].nom="B";
-            }
-            else{
-                r->Reseau[bm.ligne][bm.colonne].nom="*";
-
-            }
-            
+            r->Reseau[bm.ligne][bm.colonne].etiquette="B";
         }
     }
 }

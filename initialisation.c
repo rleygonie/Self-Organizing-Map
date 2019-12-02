@@ -39,7 +39,6 @@ base_de_données initialisation_bd(){
         fgets (line, sizeof line, iris);
         str = line;
         token=strtok(str,delim);
-        //printf("%s",token);
         b.donnée[i].vecteur[j]= strtod(token, &ptr);
         j++;
         while(token!=NULL){
@@ -51,7 +50,6 @@ base_de_données initialisation_bd(){
             }
             //On met les étiquettes 
             token=strtok(NULL,delim);
-            //printf("%s\n",token);
             b.donnée[i].nom=strcpy(b.donnée[i].nom,token);
             token = NULL;
             j=0;
@@ -59,13 +57,6 @@ base_de_données initialisation_bd(){
          }
     } 
     fclose(iris);
-    /*for (int i=0; i<b.nb_lignes;i++){
-        for (int j=0; j<4;j++){
-            printf("%f",b.donnée[i].vecteur[j]);
-        }
-        printf("\n");
-    }*/
-    
 
     //
     //Normalisation
@@ -80,12 +71,7 @@ base_de_données initialisation_bd(){
             
         }
     }
-    /*for (int i=0; i<b.nb_lignes;i++){
-        for (int j=0; j<4;j++){
-            printf("%f",b.donnée[i].vecteur[j]);
-        }
-        printf("\n");
-    }*/
+   
 
     // 
     //Calcul du vecteur moyen de la bd
@@ -110,7 +96,6 @@ reseau* initialisation_reseau(base_de_données b){
     assert(r);
     r->largeur=6;
     r->longueur=10;
-    //r = reseau_de_neurone(r->largeur,r->longueur,b);
     //Allocation de mémoire
     r->Reseau= (neurone **) malloc(r->largeur*r->longueur*sizeof(*r->Reseau));
     assert(r->Reseau);
@@ -124,11 +109,6 @@ reseau* initialisation_reseau(base_de_données b){
         for (int j = 0; j < r->largeur; j++) {
             r->Reseau[i][j].valeur= (double *) malloc( (b.taille_vecteur) *sizeof(*r->Reseau[i][j].valeur));
             assert(r->Reseau[i][j].valeur);
-            r->Reseau[i][j].etiquette= (int) calloc(3, 3*sizeof(int));
-            assert(r->Reseau[i][j].etiquette);
-            //r->Reseau[i][j].nom=(char *)malloc(30*sizeof(char));
-            //assert(r->Reseau[j][j].nom);
-            //strdup
         }
     }
    
@@ -136,11 +116,10 @@ reseau* initialisation_reseau(base_de_données b){
 
    for (int i = 0; i < r->longueur; ++i){
         for (int j= 0; j < r->largeur; ++j){
-            for (int z = 0; z < 4; ++z){
+            for (int z = 0; z < b.taille_vecteur; ++z){
                 r->Reseau[i][j].valeur[z]=tire_aleatoirement(-0.02 + b.moy_vect[z], 0.05 + b.moy_vect[z]);
-                //printf("%f",r.Reseau[i][j].valeur[z]);
             }
-            //printf("\n");
+            r->Reseau[i][j].etiquette="*";
         }
     }
 

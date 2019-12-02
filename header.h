@@ -3,13 +3,9 @@
 #include <math.h>
 #include <string.h>
 
-
-
 struct neurone {
     double *valeur;
-    char *nom;
-    int etiquette; 
-    
+    char *etiquette;   
 };
 typedef struct neurone neurone;
 
@@ -50,13 +46,6 @@ typedef struct liste_bmu{
 }liste_bmu;
 
 
-
-/*typedef struct bmu {
-  struct bmu* suiv; 
-  int ligne;
-  int colonne; 
-  int nb_val;
-}bmu;*/
 
 double normalise(double *vect, int distance);
 double tire_aleatoirement(double min, double max);
