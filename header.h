@@ -5,7 +5,8 @@
 
 struct neurone {
     double *valeur;
-    char *etiquette;   
+    char *etiquette; 
+    int val[3];  
 };
 typedef struct neurone neurone;
 
@@ -58,3 +59,6 @@ void apprentissage( base_de_données b, reseau *r, int nb_iteration);
 void voisinage(reseau *r,bmu bm, int rayon, double alpha, int pos, base_de_données b);
 int calculer_rayon(int iteration, int phase1, int rayon);
 void affecte_valeur(reseau *r,bmu bm, int pos, base_de_données b);
+void affiche_res(reseau *r);
+void stat (reseau *r, bmu bm, int pos, base_de_données b);
+void affecte_valeur_fin(reseau *r,bmu bm, int pos, base_de_données b);

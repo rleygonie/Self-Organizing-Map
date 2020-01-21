@@ -1,0 +1,15 @@
+Le dossier SOM contient les fichiers suivants :
+- iris.txt, les données utilisées pour l'expérimentation du SOM 
+- header.h, où sont définies les structures 
+- Tools.c, où se trouvent les fonctions annexes non propres au SOM 
+- Annexe.c, où se trouvent les fonctions propres au SOM utilisées dans l'apprentissage 
+- initialisation.c, qui correspond à la phase d'initialisation du réseau de neurones
+- Apprentissage.c, qui correspond à la phase d'apprentissage du réseau 
+- main.c, indispensable pour compiler/exécuter le programme
+- Makefile, qui facilite la compilation 
+
+Pour compiler, dans un terminal, tapez la commande :
+make 
+
+Pour exécuter, tapez la commande :
+./SOM

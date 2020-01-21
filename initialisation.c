@@ -100,10 +100,10 @@ reseau* initialisation_reseau(base_de_données b){
     r->Reseau= (neurone **) malloc(r->largeur*r->longueur*sizeof(*r->Reseau));
     assert(r->Reseau);
     for ( int i = 0; i < r->longueur; i++) {
-        //for ( int j = 0; j < r.largeur; j++) {
+        
         r->Reseau[i]=(neurone *)malloc(r->largeur*sizeof(*r->Reseau[i]));
         assert(r->Reseau[i]);
-       // }
+       
     }
     for ( int i= 0; i < r->longueur; i++) {
         for (int j = 0; j < r->largeur; j++) {
@@ -117,7 +117,7 @@ reseau* initialisation_reseau(base_de_données b){
    for (int i = 0; i < r->longueur; ++i){
         for (int j= 0; j < r->largeur; ++j){
             for (int z = 0; z < b.taille_vecteur; ++z){
-                r->Reseau[i][j].valeur[z]=tire_aleatoirement(-0.02 + b.moy_vect[z], 0.05 + b.moy_vect[z]);
+                r->Reseau[i][j].valeur[z]=tire_aleatoirement(-0.05 + b.moy_vect[z], 0.05 + b.moy_vect[z]);
             }
             r->Reseau[i][j].etiquette="*";
         }

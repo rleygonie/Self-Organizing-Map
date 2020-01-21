@@ -1,7 +1,8 @@
 #include "assert.h"
 #include "header.h"
 #include <string.h>
-
+#define LO 10
+#define LA 6
 //La fonction shuffle prend un tableau d'indice et le mélange alétoirement 
 int* shuffle(int *tab_ind, int taille){
     int tmp =0;
@@ -115,7 +116,8 @@ void voisinage(reseau *r,bmu bm, int rayon, double alpha, int pos, base_de_donn�
 
 int calculer_rayon(int iteration, int phase1, int rayon){
     int r;
-    double chgmt= phase1/rayon;
+    int chgmt =phase1/rayon;
+    
     if (iteration<=chgmt){
         r=3;
     }
@@ -131,8 +133,6 @@ int calculer_rayon(int iteration, int phase1, int rayon){
 }
 
 
-
-
 void affecte_valeur(reseau *r,bmu bm, int pos, base_de_données b){
     if (strcmp(b.donnée[pos].nom,"Iris-setosa\n")==0){
         r->Reseau[bm.ligne][bm.colonne].etiquette="R";
@@ -143,6 +143,51 @@ void affecte_valeur(reseau *r,bmu bm, int pos, base_de_données b){
         }
         else{
             r->Reseau[bm.ligne][bm.colonne].etiquette="B";
+        }
+    }
+}
+
+void affecte_valeur_fin(reseau *r,bmu bm, int pos, base_de_données b){
+    if (r->Reseau[bm.ligne][bm.colonne].val[0]>r->Reseau[bm.ligne][bm.colonne].val[1] && r->Reseau[bm.ligne][bm.colonne].val[0]>r->Reseau[bm.ligne][bm.colonne].val[2]){
+        r->Reseau[bm.ligne][bm.colonne].etiquette="R";
+    }
+    else {
+        if (r->Reseau[bm.ligne][bm.colonne].val[1]>r->Reseau[bm.ligne][bm.colonne].val[0] && r->Reseau[bm.ligne][bm.colonne].val[1]>r->Reseau[bm.ligne][bm.colonne].val[2]){
+            r->Reseau[bm.ligne][bm.colonne].etiquette="E";
+        }
+        else{
+            if (r->Reseau[bm.ligne][bm.colonne].val[2]>r->Reseau[bm.ligne][bm.colonne].val[0] && r->Reseau[bm.ligne][bm.colonne].val[2]>r->Reseau[bm.ligne][bm.colonne].val[1]){
+                r->Reseau[bm.ligne][bm.colonne].etiquette="B";
+            }
+            else {
+                r->Reseau[bm.ligne][bm.colonne].etiquette="-";
+            }
+            
+        }
+            
+    }
+}
+
+
+void affiche_res(reseau *r){
+    for (int ligne=0; ligne<LO;ligne++){
+        for(int colonne=0;colonne<LA;colonne++){
+            printf("%s ",r->Reseau[ligne][colonne].etiquette);
+        }
+        printf("\n");
+    }   
+}
+
+void stat (reseau *r, bmu bm, int pos, base_de_données b){
+    if (strcmp(b.donnée[pos].nom,"Iris-setosa\n")==0){
+        r->Reseau[bm.ligne][bm.colonne].val[0]+=1;
+    }
+    else{
+        if(strcmp(b.donnée[pos].nom,"Iris-versicolor\n")==0){
+            r->Reseau[bm.ligne][bm.colonne].val[1]+=1;
+        }
+        else{
+            r->Reseau[bm.ligne][bm.colonne].val[2]+=1;
         }
     }
 }
