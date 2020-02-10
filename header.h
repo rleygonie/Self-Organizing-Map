@@ -18,20 +18,20 @@ struct reseau {
 };
 typedef struct reseau reseau;
 
- struct donnée {
+ struct donnee {
      double *vecteur;
      char* nom;
      double norme;
  };  
- typedef struct donnée donnée;
+ typedef struct donnee donnee;
 
- struct base_de_données {
-     struct donnée* donnée;
+ struct base_de_donnees {
+     struct donnee* donnee;
      int taille_vecteur;
      int nb_lignes;
      double* moy_vect;
  };
- typedef struct base_de_données base_de_données;
+ typedef struct base_de_donnees base_de_donnees;
 
 
 typedef struct bmu{
@@ -51,14 +51,14 @@ typedef struct liste_bmu{
 double normalise(double *vect, int distance);
 double tire_aleatoirement(double min, double max);
 double distance_euclidienne (double *x, double *y, int taille);
-base_de_données initialisation_bd();
-reseau* initialisation_reseau(base_de_données b);
+base_de_donnees initialisation_bd();
+reseau* initialisation_reseau(base_de_donnees b);
 int* shuffle(int *tab_ind, int taille);
-bmu trouver_le_bmu (reseau *r, base_de_données b, int pos );
-void apprentissage( base_de_données b, reseau *r, int nb_iteration);
-void voisinage(reseau *r,bmu bm, int rayon, double alpha, int pos, base_de_données b);
+bmu trouver_le_bmu (reseau *r, base_de_donnees b, int pos );
+void apprentissage( base_de_donnees b, reseau *r, int nb_iteration);
+void voisinage(reseau *r,bmu bm, int rayon, double alpha, int pos, base_de_donnees b);
 int calculer_rayon(int iteration, int phase1, int rayon);
-void affecte_valeur(reseau *r,bmu bm, int pos, base_de_données b);
+void affecte_valeur(reseau *r,bmu bm, int pos, base_de_donnees b);
 void affiche_res(reseau *r);
-void stat (reseau *r, bmu bm, int pos, base_de_données b);
-void affecte_valeur_fin(reseau *r,bmu bm, int pos, base_de_données b);
+void stat (reseau *r, bmu bm, int pos, base_de_donnees b);
+void affecte_valeur_fin(reseau *r,bmu bm, int pos, base_de_donnees b);

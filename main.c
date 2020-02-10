@@ -6,7 +6,7 @@
 
 int main(){
    
-    base_de_données b;
+    base_de_donnees b;
     b=initialisation_bd();
     reseau *r;
     r=initialisation_reseau(b);
@@ -20,8 +20,7 @@ int main(){
     printf("------------------------Fin------------------------\n");
     affiche_res(r);
 
-
-
+    
     return 0;
 }
 

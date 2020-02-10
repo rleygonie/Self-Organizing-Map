@@ -4,7 +4,8 @@
 
 double normalise(double *vect, int distance){
     double norme=0;
-    for (int i=0; i < distance-1; ++i){
+    int i;
+    for (i=0; i < distance-1; ++i){
         norme += pow(vect[i],2);
     }
     norme= sqrt(norme);
