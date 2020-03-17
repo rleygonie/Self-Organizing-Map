@@ -42,8 +42,8 @@ typedef struct bmu{
 
 typedef struct liste_bmu{
     int nb;
-    //bmu *premier;
-    bmu *dernier;
+    bmu *premier;
+    //bmu *dernier;
 }liste_bmu;
 
 
@@ -62,3 +62,7 @@ void affecte_valeur(reseau *r,bmu bm, int pos, base_de_donnees b);
 void affiche_res(reseau *r);
 void stat (reseau *r, bmu bm, int pos, base_de_donnees b);
 void affecte_valeur_fin(reseau *r,bmu bm, int pos, base_de_donnees b);
+void afficherListe(liste_bmu *liste);
+void suppression(liste_bmu *liste);
+void insertion(liste_bmu *liste, int ligne, int colonne);
+liste_bmu *initialisation();

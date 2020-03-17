@@ -16,76 +16,6 @@ int* shuffle(int *tab_ind, int taille){
     return tab_ind;
 } 
 
-bmu trouver_le_bmu (reseau *r, base_de_donnees b, int pos ){
-    liste_bmu *liste= malloc(sizeof(*liste));
-    assert(liste);
-    bmu *bm=malloc(sizeof(*bm));
-    assert(bm);
-    // bmu *dernier=malloc(sizeof(*dernier));
-    // bmu *suivant=malloc(sizeof(*suivant));
-    bm->colonne=0;
-    bm->ligne=0;
-    bm->suivant =NULL;
-    liste->dernier=NULL;
-
-    double tmp=0.0;
-    double distance_min=1.0;
-    int i;
-    int j;
-    for(i=0; i<r->longueur;i++){
-        for (j=0;j<r->largeur;j++){
-            tmp=distance_euclidienne(b.donnee[pos].vecteur,r->Reseau[i][j].valeur,b.taille_vecteur);
-
-            if (tmp<distance_min){
-                while(bm->suivant){
-                    bmu *temp=malloc(sizeof(*temp));
-                    temp = bm->suivant;
-                    free(bm);
-                    bm=temp;
-                }
-                
-                free(liste->dernier);
-                liste->nb=0;
-                distance_min=tmp;
-                bm->ligne=i;
-                bm->colonne=j;
-                bmu *suivant=malloc(sizeof(*suivant));
-                bmu *dernier=malloc(sizeof(*dernier));
-                bm->suivant=NULL;
-                liste->dernier=NULL;
-                
-            }
-            else {
-                if (tmp==distance_min){
-                    bmu *new=malloc(sizeof(*new));
-                    assert(new); 
-                    while (bm->suivant){
-                        bm=bm->suivant;
-                    }
-
-                    bm->suivant=liste->dernier;
-                    new->ligne=i;
-                    new->colonne=j;
-                    liste->dernier=new;
-                    liste->nb+=1;
-                }
-            }
-        }
-
-    }
-
-    if (liste->nb>1){
-        int alea=rand()% liste->nb;
-        return bm[alea];
-        for (i=0; i<alea;i++){
-            bm=bm->suivant;
-        }
-        
-    }
-    return bm[0];
-}
-
-
 void voisinage(reseau *r,bmu bm, int rayon, double alpha, int pos, base_de_donnees b){
     
     int x_min=bm.ligne-rayon;
@@ -197,3 +127,114 @@ void stat (reseau *r, bmu bm, int pos, base_de_donnees b){
         }
     }
 }
+
+
+
+
+
+liste_bmu *initialisation(){
+    liste_bmu *liste=malloc(sizeof(*liste));
+    bmu *bmu =malloc(sizeof(*bmu));
+     if (liste == NULL || bmu == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    bmu->ligne = 0;
+    bmu->colonne=0;
+    bmu->suivant = NULL;
+    liste->premier = bmu;
+    liste->nb+=1;
+
+    return liste;
+}
+
+void insertion(liste_bmu *liste, int ligne, int colonne)
+{
+    bmu *nouveau = malloc(sizeof(*nouveau));
+    if (liste == NULL || nouveau == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    nouveau->ligne = ligne;
+    nouveau->colonne=colonne;
+
+    nouveau->suivant = liste->premier;
+    liste->premier = nouveau;
+    liste->nb+=1;
+}
+
+
+void suppression(liste_bmu *liste)
+{   
+    while(liste->premier->suivant){
+        bmu *aSupprimer = liste->premier;
+        liste->premier = liste->premier->suivant;
+        free(aSupprimer);
+    }
+    liste->premier=NULL;
+    liste->nb=0;
+}
+
+
+void afficherListe(liste_bmu *liste)
+{
+    if (liste == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    bmu *actuel = liste->premier;
+
+    while (actuel != NULL)
+    {
+        printf("ligne -> %d\n, colonne ->%d\n ", actuel->ligne, actuel->colonne);
+        actuel = actuel->suivant;
+    }
+    printf("NULL\n");
+}
+
+bmu trouver_le_bmu (reseau *r, base_de_donnees b, int pos ){
+    liste_bmu *liste=initialisation();
+    double tmp=0.0;
+    double distance_min=1.0;
+    int i;
+    int j;
+    for(i=0; i<r->longueur;i++){
+        for (j=0;j<r->largeur;j++){
+            tmp=distance_euclidienne(b.donnee[pos].vecteur,r->Reseau[i][j].valeur,b.taille_vecteur);
+            //printf("i:%d,j:%d\n",i,j);
+            if (tmp<distance_min){
+                //printf("tmp<dist %f<%f\n", tmp, distance_min);
+                suppression(liste);
+                //afficherListe(liste);
+                insertion(liste,i,j);
+                //afficherListe(liste);
+                distance_min=tmp;
+            }
+            else {
+                if (tmp==distance_min){
+                    insertion(liste,i,j);
+                    //printf("tmp=dist %f<%f\n", tmp, distance_min);
+                    //afficherListe(liste);
+                }
+            }
+        }
+
+    }
+
+    bmu *bm = liste->premier;
+    if (liste->nb>1){
+        //afficherListe(liste);
+        int alea=rand()%liste->nb;
+        //printf("alea:%d\n",alea);
+        int z;
+        for (z=1; z<alea;z++){
+            bm=bm->suivant;
+        }
+        //printf("i:%d,j:%d\n ", bm->ligne,bm->colonne);
+    }
+    return *bm;
+}
+    
+    

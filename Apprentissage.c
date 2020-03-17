@@ -8,6 +8,8 @@ void apprentissage( base_de_donnees b, reseau *r, int nb_iteration){
     int phase1= nb_iteration/4;
     int phase2= nb_iteration-phase1;
     int i;
+    int o;
+    int a;
     for (i = 0; i < b.nb_lignes; i++)
     {
         tab_ind[i]=i;  
@@ -23,15 +25,22 @@ void apprentissage( base_de_donnees b, reseau *r, int nb_iteration){
             bm = trouver_le_bmu(r,b,tab_ind[ind]);
             rayon=calculer_rayon(j,phase1,3);
             voisinage(r,bm,rayon,alpha,tab_ind[ind],b);
+
             affecte_valeur(r,bm,tab_ind[ind],b);
         }
         alpha=alpha_init*(1-((double)j/(double)phase1));
+        
         if (j%100==0){
             affiche_res(r);
             printf("_______________________________\n\n");
-            
         }
-        
+        if(j%50==0){
+            for (a=0; a<r->longueur;a++){
+                for(o=0; o<r->largeur;o++){
+                    r->Reseau[a][o].etiquette="*";
+                }
+            }
+        }
     }
 
     printf("----------------------Phase 2--------------------\n");
@@ -45,11 +54,19 @@ void apprentissage( base_de_donnees b, reseau *r, int nb_iteration){
             affecte_valeur(r,bm,tab_ind[ind],b);
         }
         alpha=alpha_init*(1-((double)j/(double)phase2));
+        
         if (j%400==0){
             affiche_res(r);
             printf("_______________________________\n\n");
 
-            
+        }
+        if (j%200==0){
+            for (a=0;a<r->longueur;a++){
+                for(o=0; o<r->largeur;o++){
+                    r->Reseau[a][o].etiquette="*";
+                }
+            }
+
         }
     }
 

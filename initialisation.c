@@ -107,6 +107,7 @@ reseau* initialisation_reseau(base_de_donnees b){
     for (i = 0; i < r->longueur; i++) {
         
         r->Reseau[i]=(neurone *)malloc(r->largeur*sizeof(*r->Reseau[i]));
+        r->Reseau[i]->etiquette=(char *) malloc(30 *sizeof(char));
         assert(r->Reseau[i]);
        
     }
